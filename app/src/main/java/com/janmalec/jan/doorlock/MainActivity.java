@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -58,16 +59,26 @@ public class MainActivity extends ActionBarActivity {
         gLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent log_I = new Intent(context, Log.class);
+                Intent log_I = new Intent(context, ListActivity.class);
                 ArrayList <Entry> events = new ArrayList<>();
                 events = db.getAllEvents();
-                Log.d("prvi timestamp", events.get(0).getTimestamp());
-                Log.d("drugi timestamp", events.get(1).getTimestamp());
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("logs", events);
+                if (events.size() > 1) {
+                    Log.d("prvi timestamp", events.get(0).getTimestamp());
+                    Log.d("drugi timestamp", events.get(1).getTimestamp());
+                    ArrayList<String> timeStamps = new ArrayList<String>();
+                    ArrayList<Integer> locked = new ArrayList<Integer>();
 
-                //log_I.putExtra("log", bundle);
-                startActivity(log_I);
+                    int i = 0;
+                    for (Entry current : events) {
+                        timeStamps.add(i, current.getTimestamp());
+                        locked.add(i, current.getOpenClose());
+                        i = i + 1;
+                    }
+
+                    log_I.putExtra("timestamps", timeStamps);
+                    log_I.putExtra("ocs", locked);
+                    startActivity(log_I);
+                }
 
 
             }

@@ -7,7 +7,7 @@ import java.util.Locale;
 /**
  * Created by jan on 16.5.2015.
  */
-public class Entry {
+public class Entry implements java.io.Serializable{
 
     private Date timestamp = null;
     private int oClose; // 0 is open, 1 is close
