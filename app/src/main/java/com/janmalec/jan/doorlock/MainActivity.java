@@ -1,6 +1,7 @@
 package com.janmalec.jan.doorlock;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,11 +11,11 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity {
-
-    private Button gZakleni;
-
+    private Context context;
 
 
 
@@ -23,25 +24,54 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final MySQLiteHelper db = new MySQLiteHelper(this);
+        Button gZakleni;
+        Button gNisem;
+        Button gLog;
+        context = this.getApplicationContext(); // important
 
         gZakleni = (Button)findViewById(R.id.button_zakleni);
+        gNisem = (Button)findViewById(R.id.button_nisem);
+        gLog = (Button)findViewById(R.id.button_log);
 
         gZakleni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast msg = Toast.makeText(getBaseContext(), "Zaklenil si vrata",
                         Toast.LENGTH_LONG);
-                db.addEvent(new Entry(10, 1));
+                db.addEvent(new Entry(1));
 
                 msg.show();
             }
         });
 
+        gNisem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast msg = Toast.makeText(getBaseContext(), "Nemarnez",
+                        Toast.LENGTH_LONG);
+                db.addEvent(new Entry(0));
+
+                msg.show();
+            }
+        });
+
+        gLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent log_I = new Intent(context, Log.class);
+                ArrayList <Entry> events = new ArrayList<>();
+                events = db.getAllEvents();
+                Log.d("prvi timestamp", events.get(0).getTimestamp());
+                Log.d("drugi timestamp", events.get(1).getTimestamp());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("logs", events);
+
+                //log_I.putExtra("log", bundle);
+                startActivity(log_I);
 
 
-        db.addEvent(new Entry(10, 1));
-        db.addEvent(new Entry(10, 1));
-        db.getEvent(0);
+            }
+        });
 
     }
 

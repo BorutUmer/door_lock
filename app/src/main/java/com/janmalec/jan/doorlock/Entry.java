@@ -1,46 +1,46 @@
 package com.janmalec.jan.doorlock;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by jan on 16.5.2015.
  */
 public class Entry {
 
-    private int id;
-    private int timestamp;
+    private Date timestamp = null;
     private int oClose; // 0 is open, 1 is close
 
     public Entry(){}
 
-    public Entry(int timestamp, int oClose){
+    public Entry(int oClose){
         super();
-        this.timestamp = timestamp;
+
+        this.timestamp = new Date();
         this.oClose = oClose;
     }
 
     @Override
     public String toString() {
-        return "Event [id=" + id + ", timestamp=" + timestamp + ", open_close=" + oClose
+        return "Event [timestamp=" + getTimestamp() + ", open_close=" + oClose
                 + "]";
     }
 
-    public int getId(){
-        return id;
+
+    public String getTimestamp(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(timestamp);
+
     }
 
-    public int getTimestamp(){
-        return timestamp;
+    public void setTimestamp(Date timestamp){
+        this.timestamp = timestamp;
     }
 
     public int getOpenClose(){
         return oClose;
-    }
-
-    public void setId(int id){
-        this.id = id;
-    }
-
-    public void setTimestamp(int timestamp){
-        this.timestamp = timestamp;
     }
 
     public void setoClose(int oClose){

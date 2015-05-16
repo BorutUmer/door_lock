@@ -3,5 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="z_vrata">Zaklep!</string>
+    <string name="z_vrata">Zaklenil sem</string>
+    <string name="n_vrata">Nisem zaklenil</string>
+    <string name="log_string">Stats</string>
+
 </resources>
