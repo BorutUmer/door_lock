@@ -56,7 +56,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(EVENT_TS, event.getTimestamp());
         values.put(EVENT_OC, event.getOpenClose());
 
-        db.insert(TABLE_EVENTS, null, values);
+        long id = db.insert(TABLE_EVENTS, null, values);
+
+        Log.d("Adding event: ", event.toString());
+        Log.d("With id: ", Long.toString(id));
     }
 
     public Entry getEvent(int id){
@@ -65,12 +68,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor= db.query(TABLE_EVENTS,
                 COLUMNS,
                 " id = ?",
-                new String[] {String.valueOf(id)},
+                new String[]{String.valueOf(id)},
                 null,
                 null,
                 null,
                 null
-                );
+        );
         if (cursor!= null)
             cursor.moveToFirst();
 
@@ -81,7 +84,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         Log.d("Event", event.toString());
 
         return event;
-
     }
 
+    /*public int getEventsCount(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+    }
+    */
 }

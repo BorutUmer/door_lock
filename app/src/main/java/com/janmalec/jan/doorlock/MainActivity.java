@@ -22,7 +22,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MySQLiteHelper db = new MySQLiteHelper(this);
+        final MySQLiteHelper db = new MySQLiteHelper(this);
 
         gZakleni = (Button)findViewById(R.id.button_zakleni);
 
@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Toast msg = Toast.makeText(getBaseContext(), "Zaklenil si vrata",
                         Toast.LENGTH_LONG);
+                db.addEvent(new Entry(10, 1));
 
                 msg.show();
             }
@@ -40,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
 
         db.addEvent(new Entry(10, 1));
         db.addEvent(new Entry(10, 1));
-        db.getEvent(1);
+        db.getEvent(0);
 
     }
 

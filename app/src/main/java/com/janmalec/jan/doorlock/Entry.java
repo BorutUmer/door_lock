@@ -19,7 +19,7 @@ public class Entry {
 
     @Override
     public String toString() {
-        return "Event [timestamp=" + timestamp + ", open_close=" + oClose
+        return "Event [id=" + id + ", timestamp=" + timestamp + ", open_close=" + oClose
                 + "]";
     }
 
