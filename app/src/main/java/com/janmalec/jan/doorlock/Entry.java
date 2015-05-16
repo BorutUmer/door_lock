@@ -5,6 +5,7 @@ package com.janmalec.jan.doorlock;
  */
 public class Entry {
 
+    private int id;
     private int timestamp;
     private int oClose; // 0 is open, 1 is close
 
@@ -12,5 +13,29 @@ public class Entry {
     public String toString() {
         return "Event [timestamp=" + timestamp + ", open_close=" + oClose
                 + "]";
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public int getTimestamp(){
+        return timestamp;
+    }
+
+    public int getOpenClose(){
+        return oClose;
+    }
+
+    public void setId(int id_){
+        id = id_;
+    }
+
+    public void setTimestamp(int timestamp_){
+        timestamp = timestamp_;
+    }
+
+    public void setoClose(int oClose_){
+        oClose = oClose_;
     }
 }
