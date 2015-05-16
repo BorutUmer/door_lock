@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
@@ -72,8 +73,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 );
         if (cursor!= null)
             cursor.moveToFirst();
+
         Entry event = new Entry();
-        event.setId(Integer.parseInt(Integer.parseInt(cursor.getString(0))));
+        event.setId(Integer.parseInt(cursor.getString(0)));
+        event.setTimestamp(Integer.parseInt(cursor.getString(1)));
+        event.setoClose(Integer.parseInt(cursor.getString(2)));
+        Log.d("Event", event.toString());
 
         return event;
 

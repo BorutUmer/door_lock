@@ -9,6 +9,14 @@ public class Entry {
     private int timestamp;
     private int oClose; // 0 is open, 1 is close
 
+    public Entry(){}
+
+    public Entry(int timestamp, int oClose){
+        super();
+        this.timestamp = timestamp;
+        this.oClose = oClose;
+    }
+
     @Override
     public String toString() {
         return "Event [timestamp=" + timestamp + ", open_close=" + oClose
@@ -27,15 +35,15 @@ public class Entry {
         return oClose;
     }
 
-    public void setId(int id_){
-        id = id_;
+    public void setId(int id){
+        this.id = id;
     }
 
-    public void setTimestamp(int timestamp_){
-        timestamp = timestamp_;
+    public void setTimestamp(int timestamp){
+        this.timestamp = timestamp;
     }
 
-    public void setoClose(int oClose_){
-        oClose = oClose_;
+    public void setoClose(int oClose){
+        this.oClose = oClose;
     }
 }

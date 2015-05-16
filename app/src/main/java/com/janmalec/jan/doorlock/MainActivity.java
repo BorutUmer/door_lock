@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.util.Log;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MySQLiteHelper db = new MySQLiteHelper(this);
 
         gZakleni = (Button)findViewById(R.id.button_zakleni);
 
@@ -29,12 +31,16 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Toast msg = Toast.makeText(getBaseContext(), "Zaklenil si vrata",
                         Toast.LENGTH_LONG);
+
                 msg.show();
-
-
             }
         });
 
+
+
+        db.addEvent(new Entry(10, 1));
+        db.addEvent(new Entry(10, 1));
+        db.getEvent(1);
 
     }
 
