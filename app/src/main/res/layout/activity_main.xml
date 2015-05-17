@@ -12,7 +12,7 @@
         android:layout_height="451dp"
         android:id="@+id/girlImg"
         android:background="@drawable/girl_away"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="18dp"
         android:layout_alignBottom="@+id/linearLayout" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,6 +51,8 @@
     <TextView
         android:layout_width="313dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:layout_marginLeft="20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Have you locked the door?"
         android:id="@+id/textLocked" />
@@ -69,5 +71,6 @@
         android:layout_height="300dp"
         android:id="@+id/catImg"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/cat_home" />
+        android:background="@drawable/cat_home"
+        android:visibility="visible" />
 </RelativeLayout>
