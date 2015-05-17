@@ -30,7 +30,7 @@ public class Entry implements java.io.Serializable{
 
     public String getTimestamp(){
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         return dateFormat.format(timestamp);
 
     }

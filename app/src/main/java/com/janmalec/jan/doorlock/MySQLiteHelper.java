@@ -79,7 +79,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         Entry entry;
         String databaseDate;
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         Date dataDate = null;
         int i = 0;
         if(cursor.moveToFirst()){

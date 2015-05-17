@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class ListActivity extends ActionBarActivity {
@@ -23,11 +24,14 @@ public class ListActivity extends ActionBarActivity {
         ArrayList<String> timeStamps = (ArrayList<String>) getIntent().getSerializableExtra("timestamps");
         ArrayList<Integer> locked = (ArrayList<Integer>) getIntent().getSerializableExtra("ocs");
 
+        Collections.reverse(timeStamps);
+        Collections.reverse(locked);
+
         Log.d("prvi timestamp", timeStamps.get(0));
 
         String [] timeStampsString = new String [timeStamps.size()];
-        String uLocked = " Locked";
-        String uNlocked = " Not locked";
+        String uLocked = "      Locked";
+        String uNlocked = "     Not locked";
 
         for(int i = 0; i < timeStamps.size(); i++){
             if(locked.get(i) == 1) {

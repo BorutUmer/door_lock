@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.util.Log;
 
@@ -25,13 +26,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final MySQLiteHelper db = new MySQLiteHelper(this);
-        Button gZakleni;
-        Button gNisem;
+        ImageButton gZakleni;
+        ImageButton gNisem;
         Button gLog;
         context = this.getApplicationContext(); // important
 
-        gZakleni = (Button)findViewById(R.id.button_zakleni);
-        gNisem = (Button)findViewById(R.id.button_nisem);
+        gZakleni = (ImageButton)findViewById(R.id.button_zakleni);
+        gNisem = (ImageButton)findViewById(R.id.button_nisem);
         gLog = (Button)findViewById(R.id.button_log);
 
         gZakleni.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
                         Toast.LENGTH_LONG);
                 db.addEvent(new Entry(1));
 
-                msg.show();
+              //  msg.show();
             }
         });
 
@@ -52,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
                         Toast.LENGTH_LONG);
                 db.addEvent(new Entry(0));
 
-                msg.show();
+                //msg.show();
             }
         });
 
