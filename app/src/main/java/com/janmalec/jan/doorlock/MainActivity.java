@@ -88,9 +88,7 @@ public class MainActivity extends ActionBarActivity {
                 Intent log_I = new Intent(context, ListActivity.class);
                 ArrayList <Entry> events = new ArrayList<>();
                 events = db.getAllEvents();
-                if (events.size() > 1) {
-                    Log.d("prvi timestamp", events.get(0).getTimestamp());
-                    Log.d("drugi timestamp", events.get(1).getTimestamp());
+                if (events.size() > 0) {
                     ArrayList<String> timeStamps = new ArrayList<String>();
                     ArrayList<Integer> locked = new ArrayList<Integer>();
 
@@ -252,9 +250,7 @@ public class MainActivity extends ActionBarActivity {
                 Intent log_I = new Intent(context, ListActivity.class);
                 ArrayList <Entry> events = new ArrayList<>();
                 events = db.getAllEvents();
-                if (events.size() > 1) {
-                    Log.d("prvi timestamp", events.get(0).getTimestamp());
-                    Log.d("drugi timestamp", events.get(1).getTimestamp());
+                if (events.size() > 0) {
                     ArrayList<String> timeStamps = new ArrayList<String>();
                     ArrayList<Integer> locked = new ArrayList<Integer>();
                     int i = 0;
