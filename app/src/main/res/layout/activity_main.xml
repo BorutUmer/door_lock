@@ -35,6 +35,14 @@
             android:padding="0dp"
             android:src="@drawable/keynot" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Have you locked the door?"
+        android:id="@+id/textLocked" />
+
     <Button
         android:layout_width="180dp"
         android:layout_height="80dp"

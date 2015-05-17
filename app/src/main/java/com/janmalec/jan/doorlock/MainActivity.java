@@ -2,6 +2,9 @@ package com.janmalec.jan.doorlock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,16 +12,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import android.util.Log;
+import android.widget.TextView;
 
-import java.io.Serializable;
+import static java.util.concurrent.TimeUnit.*;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 
 public class MainActivity extends ActionBarActivity {
     private Context context;
     final MySQLiteHelper db = new MySQLiteHelper(this);
+    WifiManager wifiManager;
+    WifiInfo wifiInfo;
+    String homeSSID = "DragonH";
+    int home = 0; //0: smo doma, 1: nas ni doma
+    int alarmed = 0; //0: no need for interaction, 1: enter info
+
+    ImageButton gZakleni;
+    ImageButton gNisem;
+    TextView gLocked;
+    ScheduledExecutorService exec;
+    ScheduledFuture<?> future;
 
 
     @Override
@@ -26,34 +43,37 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton gZakleni;
-        ImageButton gNisem;
+        wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+        wifiInfo = wifiManager.getConnectionInfo();
+
         Button gLog;
         context = this.getApplicationContext(); // important
 
         gZakleni = (ImageButton)findViewById(R.id.button_zakleni);
         gNisem = (ImageButton)findViewById(R.id.button_nisem);
         gLog = (Button)findViewById(R.id.button_log);
+        gLocked = (TextView)findViewById(R.id.textLocked);
+        gZakleni.setVisibility(View.INVISIBLE);
+        gNisem.setVisibility(View.INVISIBLE);
+        gLocked.setVisibility(View.INVISIBLE);
+
 
         gZakleni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast msg = Toast.makeText(getBaseContext(), "Zaklenil si vrata",
-                        Toast.LENGTH_LONG);
                 db.addEvent(new Entry(1));
-
-              //  msg.show();
+                hideButtons();
+                future = exec.scheduleAtFixedRate(neki, 10, 5, SECONDS);
             }
+
         });
 
         gNisem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast msg = Toast.makeText(getBaseContext(), "Nemarnez",
-                        Toast.LENGTH_LONG);
                 db.addEvent(new Entry(0));
-
-                //msg.show();
+                hideButtons();
+                future = exec.scheduleAtFixedRate(neki, 10, 5, SECONDS);
             }
         });
 
@@ -80,13 +100,84 @@ public class MainActivity extends ActionBarActivity {
                     log_I.putExtra("ocs", locked);
                     startActivity(log_I);
                 }
-
-
             }
-        });
 
+
+        });
+        String SSID = wifiInfo.getSSID();
+        SSID = SSID.substring(1, SSID.length()-1);
+        Log.d("SSID: ", SSID);
+        Log.d("home SSID: ", homeSSID);
+        if (SSID.equals(homeSSID)){
+            home = 0;
+        }
+        else{
+            home = 1;
+        }
+        exec = Executors.newSingleThreadScheduledExecutor();
+        future = exec.scheduleAtFixedRate(neki, 10, 5, SECONDS);
     }
 
+    public Runnable neki = new Runnable() {
+        String SSID;
+        @Override
+        public void run(){
+            Log.d("0.1 hertz", "1");
+            wifiInfo = wifiManager.getConnectionInfo();
+            SSID = wifiInfo.getSSID();
+            SSID = SSID.substring(1, SSID.length()-1);
+            Log.d("SSID: ", SSID);
+            Log.d("home: ", Integer.toString(home));
+            Log.d("alarmed: ", Integer.toString(alarmed));
+            if(home == 0 && alarmed == 0) {
+
+                if (!SSID.equals(homeSSID)) {
+                new showButtons().execute("");
+                }
+            }
+             if(home == 1 && alarmed == 0){
+                    if(SSID.equals(homeSSID)){
+                        home = 0;
+                        Log.d("You are: ", "home");
+                    }
+                }
+            }
+    };
+
+    private class showButtons extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... params){
+            alarmed = 1;
+            home = 1;
+            Log.d("You are: ", "gone");
+
+            Log.d("Showing", "Buttons");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            gZakleni.setVisibility(View.VISIBLE);
+            gNisem.setVisibility(View.VISIBLE);
+            gLocked.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    public void hideButtons(){
+        gZakleni.setVisibility(View.INVISIBLE);
+        gNisem.setVisibility(View.INVISIBLE);
+        gLocked.setVisibility(View.INVISIBLE);
+        alarmed = 0;
+        Log.d("Hiding", "Buttons");
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
