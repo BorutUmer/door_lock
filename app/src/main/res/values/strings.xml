@@ -7,5 +7,6 @@
     <string name="n_vrata">Nisem zaklenil</string>
     <string name="log_string">Lock history</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_help">Help</string>
 
 </resources>

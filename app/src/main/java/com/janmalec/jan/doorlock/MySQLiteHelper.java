@@ -53,6 +53,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
+    public void Reset() {
+        // Drop older table if existed
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS events");
+
+        // create fresh table
+        this.onCreate(db);
+    }
+
     public void addEvent(Entry event){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -106,6 +115,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         return events;
 
+    }
+
+    public void deleteTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS events");
     }
 
 }

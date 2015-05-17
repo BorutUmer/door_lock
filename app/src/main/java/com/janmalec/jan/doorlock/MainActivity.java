@@ -18,14 +18,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
     private Context context;
-
+    final MySQLiteHelper db = new MySQLiteHelper(this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final MySQLiteHelper db = new MySQLiteHelper(this);
+
         ImageButton gZakleni;
         ImageButton gNisem;
         Button gLog;
@@ -101,9 +101,38 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id){
+            case R.id.menu_log:
+
+                Intent log_I = new Intent(context, ListActivity.class);
+                ArrayList <Entry> events = new ArrayList<>();
+                events = db.getAllEvents();
+                if (events.size() > 1) {
+                    Log.d("prvi timestamp", events.get(0).getTimestamp());
+                    Log.d("drugi timestamp", events.get(1).getTimestamp());
+                    ArrayList<String> timeStamps = new ArrayList<String>();
+                    ArrayList<Integer> locked = new ArrayList<Integer>();
+                    int i = 0;
+                    for (Entry current : events) {
+                        timeStamps.add(i, current.getTimestamp());
+                        locked.add(i, current.getOpenClose());
+                        i = i + 1;
+                    }
+                    log_I.putExtra("timestamps", timeStamps);
+                    log_I.putExtra("ocs", locked);
+                    startActivity(log_I);
+                }
+                break;
+            case R.id.menu_reset_database:
+                db.Reset();
+                break;
+            case R.id.menu_help:
+                Intent help = new Intent(context, Help.class);
+                startActivity(help);
+                break;
+            default:
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);

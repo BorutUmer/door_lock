@@ -1,5 +1,7 @@
 package com.janmalec.jan.doorlock;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,11 +17,13 @@ import java.util.Collections;
 
 
 public class ListActivity extends ActionBarActivity {
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        context = this.getApplicationContext();
 
         ArrayList<String> timeStamps = (ArrayList<String>) getIntent().getSerializableExtra("timestamps");
         ArrayList<Integer> locked = (ArrayList<Integer>) getIntent().getSerializableExtra("ocs");
@@ -63,7 +67,9 @@ public class ListActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_help) {
+            Intent help = new Intent(context, Help.class);
+            startActivity(help);
             return true;
         }
 
