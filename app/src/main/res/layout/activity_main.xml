@@ -60,12 +60,13 @@
         android:layout_height="80dp"
         android:text="@string/log_string"
         android:id="@+id/button_log"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:id="@+id/catImg"
         android:layout_gravity="center_vertical"
         android:background="@drawable/cat_home" />
