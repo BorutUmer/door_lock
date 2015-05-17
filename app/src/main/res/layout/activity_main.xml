@@ -1,41 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:orientation="vertical">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/z_vrata"
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="300dp" android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+        android:orientation="horizontal">
+
+
+
+    <ImageButton
+        android:layout_width="160dp"
+        android:layout_height="250dp"
         android:id="@+id/button_zakleni"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="55dp"
-        android:layout_marginStart="55dp" />
-
+        android:scaleType="fitXY"
+        android:padding="0dp"
+        android:src="@drawable/keyyes" />
+        <ImageButton
+            android:layout_width="160dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="0dp"
+            android:id="@+id/button_nisem"
+            android:scaleType="fitXY"
+            android:padding="0dp"
+            android:src="@drawable/keynot" />
+    </LinearLayout>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/n_vrata"
-        android:id="@+id/button_nisem"
-        android:layout_alignTop="@+id/button_zakleni"
-        android:layout_toRightOf="@+id/button_zakleni"
-        android:layout_toEndOf="@+id/button_zakleni"
-        android:layout_marginLeft="53dp"
-        android:layout_marginStart="53dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
         android:text="@string/log_string"
         android:id="@+id/button_log"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="130dp" />
-
-</RelativeLayout>
+        android:layout_marginBottom="80dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="80dp" />
+</LinearLayout>
