@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import static java.util.concurrent.TimeUnit.*;
@@ -33,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
 
     ImageButton gZakleni;
     ImageButton gNisem;
+    ImageView cat;
+    ImageView girl;
     TextView gLocked;
     ScheduledExecutorService exec;
     ScheduledFuture<?> future;
@@ -53,6 +56,8 @@ public class MainActivity extends ActionBarActivity {
         gNisem = (ImageButton)findViewById(R.id.button_nisem);
         gLog = (Button)findViewById(R.id.button_log);
         gLocked = (TextView)findViewById(R.id.textLocked);
+        cat = (ImageView)findViewById(R.id.catImg);
+        girl = (ImageView)findViewById(R.id.girlImg);
         gZakleni.setVisibility(View.INVISIBLE);
         gNisem.setVisibility(View.INVISIBLE);
         gLocked.setVisibility(View.INVISIBLE);
@@ -110,13 +115,16 @@ public class MainActivity extends ActionBarActivity {
         Log.d("home SSID: ", homeSSID);
         if (SSID.equals(homeSSID)){
             home = 0;
+            new showCat().execute("");
         }
         else{
             home = 1;
+            new showGirl().execute("");
         }
         exec = Executors.newSingleThreadScheduledExecutor();
         future = exec.scheduleAtFixedRate(neki, 10, 5, SECONDS);
     }
+
 
     public Runnable neki = new Runnable() {
         String SSID;
@@ -138,6 +146,7 @@ public class MainActivity extends ActionBarActivity {
              if(home == 1 && alarmed == 0){
                     if(SSID.equals(homeSSID)){
                         home = 0;
+                        new showCat().execute("");
                         Log.d("You are: ", "home");
                     }
                 }
@@ -160,6 +169,50 @@ public class MainActivity extends ActionBarActivity {
             gZakleni.setVisibility(View.VISIBLE);
             gNisem.setVisibility(View.VISIBLE);
             gLocked.setVisibility(View.VISIBLE);
+            cat.setVisibility(View.INVISIBLE);
+            girl.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    private class showCat extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... params){
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            cat.setVisibility(View.VISIBLE);
+            girl.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    private class showGirl extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... params){
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            girl.setVisibility(View.VISIBLE);
+            cat.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -175,6 +228,7 @@ public class MainActivity extends ActionBarActivity {
         gZakleni.setVisibility(View.INVISIBLE);
         gNisem.setVisibility(View.INVISIBLE);
         gLocked.setVisibility(View.INVISIBLE);
+        girl.setVisibility(View.VISIBLE);
         alarmed = 0;
         Log.d("Hiding", "Buttons");
     }
