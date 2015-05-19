@@ -1,18 +1,38 @@
 package com.janmalec.jan.doorlock;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class Settings extends AppCompatActivity {
+    public static final String PREFS_NAME = "doorPrefs";
+    Button save;
+    EditText ssid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        final SharedPreferences.Editor editor = settings.edit();
+        save = (Button) findViewById(R.id.button_save);
+        ssid = (EditText) findViewById(R.id.text_SSID);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String SSID_fromText;
+                SSID_fromText = ssid.getText().toString();
+                editor.putString("homeSSID", SSID_fromText);
+                editor.commit();
+            }
+        });
     }
 
     @Override

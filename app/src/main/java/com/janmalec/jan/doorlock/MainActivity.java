@@ -2,6 +2,7 @@ package com.janmalec.jan.doorlock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -28,9 +29,10 @@ public class MainActivity extends AppCompatActivity {
     final MySQLiteHelper db = new MySQLiteHelper(this);
     WifiManager wifiManager;
     WifiInfo wifiInfo;
-    String homeSSID = "DragonH";
+    String homeSSID = "";
     int home = 0; //0: smo doma, 1: nas ni doma
     int alarmed = 0; //0: no need for interaction, 1: enter info
+    public static final String PREFS_NAME = "doorPrefs";
 
     ImageButton gZakleni;
     ImageButton gNisem;
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        homeSSID = settings.getString("homeSSID",   "");
 
         wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
         wifiInfo = wifiManager.getConnectionInfo();
@@ -61,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
         gZakleni.setVisibility(View.INVISIBLE);
         gNisem.setVisibility(View.INVISIBLE);
         gLocked.setVisibility(View.INVISIBLE);
+
+        if(homeSSID.length() == 0){
+            Intent settings_activity = new Intent(context, Settings.class);
+            startActivity(settings_activity);
+        }
 
 
         gZakleni.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("SSID: ", SSID);
             Log.d("home: ", Integer.toString(home));
             Log.d("alarmed: ", Integer.toString(alarmed));
+            if(homeSSID.length() == 0){
+                Intent settings_activity = new Intent(context, Settings.class);
+                startActivity(settings_activity);
+            }
             if(home == 0 && alarmed == 0) {
 
                 if (!SSID.equals(homeSSID)) {
