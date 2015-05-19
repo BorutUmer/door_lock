@@ -7,12 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
@@ -27,7 +24,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String EVENT_TS  = "timestamp";
     private static final String EVENT_OC =  "open_close";
 
-    private static final String[] COLUMNS = {EVENT_TS,EVENT_OC};
+   // private static final String[] COLUMNS = {EVENT_TS,EVENT_OC};
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -112,14 +109,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 events.add(entry);
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return events;
 
     }
 
-    public void deleteTable(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS events");
-    }
 
 }

@@ -5,6 +5,8 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/menu_reset_database" android:title="Reset log"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/menu_settings" android:title="Settings"
+        android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/menu_help" android:title="Help"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

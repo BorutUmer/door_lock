@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private Context context;
     final MySQLiteHelper db = new MySQLiteHelper(this);
     WifiManager wifiManager;
@@ -86,11 +86,11 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent log_I = new Intent(context, ListActivity.class);
-                ArrayList <Entry> events = new ArrayList<>();
+                ArrayList <Entry> events;
                 events = db.getAllEvents();
                 if (events.size() > 0) {
-                    ArrayList<String> timeStamps = new ArrayList<String>();
-                    ArrayList<Integer> locked = new ArrayList<Integer>();
+                    ArrayList<String> timeStamps = new ArrayList<>();
+                    ArrayList<Integer> locked = new ArrayList<>();
 
                     int i = 0;
                     for (Entry current : events) {
@@ -250,11 +250,11 @@ public class MainActivity extends ActionBarActivity {
             case R.id.menu_log:
 
                 Intent log_I = new Intent(context, ListActivity.class);
-                ArrayList <Entry> events = new ArrayList<>();
+                ArrayList <Entry> events;
                 events = db.getAllEvents();
                 if (events.size() > 0) {
-                    ArrayList<String> timeStamps = new ArrayList<String>();
-                    ArrayList<Integer> locked = new ArrayList<Integer>();
+                    ArrayList<String> timeStamps = new ArrayList<>();
+                    ArrayList<Integer> locked = new ArrayList<>();
                     int i = 0;
                     for (Entry current : events) {
                         timeStamps.add(i, current.getTimestamp());
@@ -268,6 +268,10 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case R.id.menu_reset_database:
                 db.Reset();
+                break;
+            case R.id.menu_settings:
+                Intent settings = new Intent(context, Settings.class);
+                startActivity(settings);
                 break;
             case R.id.menu_help:
                 Intent help = new Intent(context, Help.class);
