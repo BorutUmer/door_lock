@@ -108,7 +108,9 @@ public class MainActivity extends ActionBarActivity {
 
         });
         String SSID = wifiInfo.getSSID();
-        SSID = SSID.substring(1, SSID.length()-1);
+        if(SSID.charAt(0) == '\"') {
+            SSID = SSID.substring(1, SSID.length() - 1);
+        }
         Log.d("SSID: ", SSID);
         Log.d("home SSID: ", homeSSID);
         if (SSID.equals(homeSSID)){
