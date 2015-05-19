@@ -23,6 +23,8 @@ public class Settings extends AppCompatActivity {
         final SharedPreferences.Editor editor = settings.edit();
         save = (Button) findViewById(R.id.button_save);
         ssid = (EditText) findViewById(R.id.text_SSID);
+        String homeSSID = settings.getString("homeSSID",   "Enter SSID");
+        ssid.setText(homeSSID);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +33,7 @@ public class Settings extends AppCompatActivity {
                 SSID_fromText = ssid.getText().toString();
                 editor.putString("homeSSID", SSID_fromText);
                 editor.commit();
+                ssid.setText(SSID_fromText);
             }
         });
     }
