@@ -1,5 +1,5 @@
 # door_lock
-A Project that me and Borut umer are working on for MLH
+A project for MLH created on DragonHack Ljubljana.
 
 Here are some hints on how to use our application. 
 The application uses your home WI-FI connection to determine your location 
